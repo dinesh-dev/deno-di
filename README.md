@@ -1,5 +1,8 @@
 # @dsivam/core
 
+[![JSR](https://jsr.io/badges/@dsivam/core)](https://jsr.io/@dsivam/core)
+[![CI](https://github.com/dinesh-dev/deno-di/actions/workflows/ci.yml/badge.svg)](https://github.com/dinesh-dev/deno-di/actions/workflows/ci.yml)
+
 A Deno-first annotation library published to **JSR** that brings NestJS-inspired
 decorators to any Deno application.
 
