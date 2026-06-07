@@ -35,7 +35,9 @@ export function OnBoot(): MethodDecoratorFn {
     context.addInitializer(function (this: unknown) {
       const ctor = (this as Record<string, unknown>).constructor;
       const existing = onBootHandlers.get(ctor) ?? [];
-      if (!existing.includes(context.name as string)) existing.push(context.name as string);
+      if (!existing.includes(context.name as string)) {
+        existing.push(context.name as string);
+      }
       onBootHandlers.set(ctor, existing);
     });
   };
@@ -81,7 +83,9 @@ export function OnDestroy(): MethodDecoratorFn {
     context.addInitializer(function (this: unknown) {
       const ctor = (this as Record<string, unknown>).constructor;
       const existing = onDestroyHandlers.get(ctor) ?? [];
-      if (!existing.includes(context.name as string)) existing.push(context.name as string);
+      if (!existing.includes(context.name as string)) {
+        existing.push(context.name as string);
+      }
       onDestroyHandlers.set(ctor, existing);
     });
   };

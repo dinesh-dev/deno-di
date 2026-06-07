@@ -9,7 +9,10 @@ export class CounterController {
 
   @OnBoot()
   init() {
-    console.log("[boot] CounterController ready. count =", this.counter.getCount());
+    console.log(
+      "[boot] CounterController ready. count =",
+      this.counter.getCount(),
+    );
   }
 
   @On("increment")
@@ -29,6 +32,9 @@ export class CounterController {
 
   @OnDestroy()
   teardown() {
-    console.log("[destroy] CounterController done. final count =", this.counter.getCount());
+    console.log(
+      "[destroy] CounterController done. final count =",
+      this.counter.getCount(),
+    );
   }
 }

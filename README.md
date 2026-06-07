@@ -1,7 +1,7 @@
 # @dsivam/core
 
-A Deno-first annotation library published to **JSR** that brings
-NestJS-inspired decorators to any Deno application.
+A Deno-first annotation library published to **JSR** that brings NestJS-inspired
+decorators to any Deno application.
 
 No Node.js. No heavy runtime. Just typed decorators and a minimal DI container
 that work with Deno's native module system.
@@ -10,37 +10,37 @@ that work with Deno's native module system.
 
 ## What it provides
 
-| Decorator | Purpose |
-| --- | --- |
-| `@Module` | Declare a module with its controllers and providers |
-| `@Injectable` | Mark a class as a DI-injectable provider |
-| `@Controller` | Mark a class as a controller (bound to a module) |
-| `@On(event)` | Bind a controller method to a named IPC/event |
-| `@OnBoot` | Lifecycle hook — runs after the app is initialized |
-| `@OnDestroy` | Lifecycle hook — runs before the app shuts down |
+| Decorator     | Purpose                                             |
+| ------------- | --------------------------------------------------- |
+| `@Module`     | Declare a module with its controllers and providers |
+| `@Injectable` | Mark a class as a DI-injectable provider            |
+| `@Controller` | Mark a class as a controller (bound to a module)    |
+| `@On(event)`  | Bind a controller method to a named IPC/event       |
+| `@OnBoot`     | Lifecycle hook — runs after the app is initialized  |
+| `@OnDestroy`  | Lifecycle hook — runs before the app shuts down     |
 
 A `DenoUIFactory.create(AppModule)` bootstrap function wires everything
-together: it resolves the dependency graph, instantiates providers in order,
-and dispatches events to the correct `@On` handlers.
+together: it resolves the dependency graph, instantiates providers in order, and
+dispatches events to the correct `@On` handlers.
 
 Beyond the decorators, the runtime ships:
 
-| API | Purpose |
-| --- | --- |
-| `bridge.dispatchSafe(event, payload)` | Dispatch into a structured `Result` envelope — never rejects (ideal across IPC) |
-| `bridge.emit` / `bridge.onEmit` | Push events backend → frontend (live updates, no polling) |
-| `createClient<Contract>(bridge)` | Type-safe RPC — calling a renamed handler is a compile error |
-| `bindBridge` (`@dsivam/core/webui`) | One-call deno_webui wiring + companion `invoke` / `on` client helpers |
-| Provider defs (`useValue`/`useClass`/`useFactory`) | Inject config objects, handles, or interfaces via `string`/`symbol` tokens |
-| `DenoUIFactory.create(mod, { strict, logger })` | Boot diagnostics: duplicate-event detection + event logging |
-| `@dsivam/core/cli` | `deno run -A jsr:@dsivam/core/cli new <name>` scaffolds a module/controller/service |
+| API                                                | Purpose                                                                             |
+| -------------------------------------------------- | ----------------------------------------------------------------------------------- |
+| `bridge.dispatchSafe(event, payload)`              | Dispatch into a structured `Result` envelope — never rejects (ideal across IPC)     |
+| `bridge.emit` / `bridge.onEmit`                    | Push events backend → frontend (live updates, no polling)                           |
+| `createClient<Contract>(bridge)`                   | Type-safe RPC — calling a renamed handler is a compile error                        |
+| `bindBridge` (`@dsivam/core/webui`)                | One-call deno_webui wiring + companion `invoke` / `on` client helpers               |
+| Provider defs (`useValue`/`useClass`/`useFactory`) | Inject config objects, handles, or interfaces via `string`/`symbol` tokens          |
+| `DenoUIFactory.create(mod, { strict, logger })`    | Boot diagnostics: duplicate-event detection + event logging                         |
+| `@dsivam/core/cli`                                 | `deno run -A jsr:@dsivam/core/cli new <name>` scaffolds a module/controller/service |
 
 ---
 
 ## Install
 
 ```ts
-import { Module, Injectable, Controller, On } from "jsr:@dsivam/core";
+import { Controller, Injectable, Module, On } from "jsr:@dsivam/core";
 ```
 
 ---
@@ -96,10 +96,10 @@ await DenoUIFactory.create(AppModule);
 ## Native desktop apps (deno_webui)
 
 The `@dsivam/core/webui` adapter binds every `@On` handler to a
-[deno_webui](https://github.com/webui-dev/deno-webui) window in one call —
-no hand-written `bind → dispatch` glue. Calls cross the boundary as a
-structured `Result` envelope, so a thrown handler error reaches the webview
-with its message intact instead of serializing to `{}`.
+[deno_webui](https://github.com/webui-dev/deno-webui) window in one call — no
+hand-written `bind → dispatch` glue. Calls cross the boundary as a structured
+`Result` envelope, so a thrown handler error reaches the webview with its
+message intact instead of serializing to `{}`.
 
 ```ts
 // main.ts (backend)
@@ -134,7 +134,7 @@ or removed `@On` handler becomes a compile error at every call site instead of a
 runtime `No handler registered`:
 
 ```ts
-import { createClient, type Contract } from "jsr:@dsivam/core";
+import { type Contract, createClient } from "jsr:@dsivam/core";
 
 interface CounterApi extends Contract {
   increment: { payload: { by: number }; result: number };
@@ -143,7 +143,7 @@ interface CounterApi extends Contract {
 
 const api = createClient<CounterApi>(bridge);
 const next = await api.increment({ by: 5 }); // typed as number
-const now  = await api.getCount();           // no payload required
+const now = await api.getCount(); // no payload required
 ```
 
 `createClient` works over any dispatcher (the `bridge`, or a custom one) and,
@@ -153,8 +153,8 @@ on success and throwing on failure.
 ### Live updates (backend → frontend)
 
 Handlers and services can push to the UI with `bridge.emit(...)` — progress,
-counters, notifications — without the webview polling. The webui adapter forwards
-each push automatically; subscribe on the frontend with `on`:
+counters, notifications — without the webview polling. The webui adapter
+forwards each push automatically; subscribe on the frontend with `on`:
 
 ```ts
 // backend
@@ -198,7 +198,7 @@ required, so `experimentalDecorators` is the only tsconfig flag needed):
 
 ```ts
 @Injectable()
-class B { }
+class B {}
 
 @Injectable()
 class A {
@@ -268,10 +268,10 @@ await DenoUIFactory.create(AppModule, {
 @Controller()
 class AppController {
   @OnBoot()
-  init() { /* called after all providers are ready */ }
+  init() {/* called after all providers are ready */}
 
   @OnDestroy()
-  teardown() { /* called on graceful shutdown */ }
+  teardown() {/* called on graceful shutdown */}
 }
 ```
 

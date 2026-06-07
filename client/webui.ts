@@ -66,7 +66,7 @@ function ensureEmitDispatcher(): void {
   if (g.__dsivamEmit) return;
   g.__dsivamEmit = (event, payload) => {
     const set = emitListeners.get(event);
-    if (set) for (const cb of set) cb(payload);
+    if (set) { for (const cb of set) cb(payload); }
   };
 }
 

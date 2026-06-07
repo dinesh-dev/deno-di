@@ -33,7 +33,10 @@ Deno.test("scaffold turns a hyphenated name into a valid param identifier", () =
   const controller = files.find((f) =>
     f.path === "weather-forecast.controller.ts"
   )!;
-  assertStringIncludes(controller.content, "export class WeatherForecastController");
+  assertStringIncludes(
+    controller.content,
+    "export class WeatherForecastController",
+  );
   // hyphen is not a legal identifier char — must become underscore
   assertStringIncludes(
     controller.content,

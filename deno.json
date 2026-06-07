@@ -20,7 +20,7 @@
     "@std/assert": "jsr:@std/assert@^1"
   },
   "publish": {
-    "exclude": [".claude/", "tests/"]
+    "exclude": [".claude/", ".idea/", ".github/", "examples/", "tests/"]
   },
   "tasks": {
     "test": "deno test --allow-all tests/",

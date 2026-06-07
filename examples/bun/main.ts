@@ -28,9 +28,15 @@ import {
 class CounterService {
   private count = 0;
 
-  increment(by = 1): number { return (this.count += by); }
-  decrement(by = 1): number { return (this.count -= by); }
-  getCount(): number { return this.count; }
+  increment(by = 1): number {
+    return (this.count += by);
+  }
+  decrement(by = 1): number {
+    return (this.count -= by);
+  }
+  getCount(): number {
+    return this.count;
+  }
 }
 
 @Controller()
@@ -40,7 +46,10 @@ class CounterController {
 
   @OnBoot()
   init() {
-    console.log("[boot] CounterController ready. count =", this.counter.getCount());
+    console.log(
+      "[boot] CounterController ready. count =",
+      this.counter.getCount(),
+    );
   }
 
   @On("increment")
@@ -60,7 +69,10 @@ class CounterController {
 
   @OnDestroy()
   teardown() {
-    console.log("[destroy] CounterController done. final count =", this.counter.getCount());
+    console.log(
+      "[destroy] CounterController done. final count =",
+      this.counter.getCount(),
+    );
   }
 }
 
