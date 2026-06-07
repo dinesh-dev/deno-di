@@ -1,0 +1,8 @@
+# JetBrains IDE
+.idea/
+
+# Claude Code local files
+.claude/
+
+# OS
+.DS_Store

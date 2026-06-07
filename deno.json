@@ -1,0 +1,31 @@
+{
+  "name": "@dsivam/core",
+  "version": "0.3.0",
+  "license": "MIT",
+  "description": "NestJS-inspired decorators (@Module, @Injectable, @Controller, @On) with a minimal DI container and transport-agnostic event bridge for Deno, Node, and Bun.",
+  "runtimeCompat": {
+    "deno": true,
+    "node": true,
+    "bun": true,
+    "browser": false,
+    "workerd": false
+  },
+  "exports": {
+    ".": "./mod.ts",
+    "./webui": "./core/transports/webui.ts",
+    "./client/webui": "./client/webui.ts",
+    "./cli": "./cli.ts"
+  },
+  "imports": {
+    "@std/assert": "jsr:@std/assert@^1"
+  },
+  "publish": {
+    "exclude": [".claude/", "tests/"]
+  },
+  "tasks": {
+    "test": "deno test --allow-all tests/",
+    "example:counter": "deno run examples/counter/main.ts",
+    "example:node": "npx tsx examples/node/main.ts",
+    "example:bun": "bun run examples/bun/main.ts"
+  }
+}
